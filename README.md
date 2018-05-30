@@ -1,12 +1,10 @@
-#
+#DfT Lab  - Counting Vehicles from satellite/aerial imagery/video
 
 
+This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend. It supports training YOLOv2 network with various backends such as MobileNet and InceptionV3. Thanks to Experiancor's excellent implementation, the original repo is here https://github.com/experiencor/keras-yolo2
 
+Links to our training set and trained weights are below.
 
-
-# YOLOv2 in Keras and Applications - Counting vehicles from aerial/satellite imagery
-
-This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend. It supports training YOLOv2 network with various backends such as MobileNet and InceptionV3. 
 
 ## Usage for python code
 
@@ -19,7 +17,7 @@ keras >= 2.0.8
 imgaug
 
 ### 1. Data preparation
-Download the Raccoon dataset from from https://github.com/nikitalpopov/vedai
+Download the VEDAI dataset from from https://github.com/nikitalpopov/vedai
 
 Organize the dataset into 4 folders:
 

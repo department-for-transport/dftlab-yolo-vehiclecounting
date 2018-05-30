@@ -2,28 +2,28 @@
     "model" : {
         "backend":              "Full Yolo",
         "input_size":           416,
-        "anchors":              [0.57273, 0.677385, 1.87446, 2.06253, 3.33843, 5.47434, 7.88282, 3.52778, 9.77052, 9.16828],
-        "max_box_per_image":    10,        
-        "labels":               ["kangaroo"]
+        "anchors":              [0.77,1.62, 1.11,1.74, 1.17,0.69, 1.73,1.60, 1.73,0.88],
+        "max_box_per_image":    10,
+        "labels":               ["car"]
     },
 
     "train": {
-        "train_image_folder":   "/home/andy/data/kangaroo/images/",
-        "train_annot_folder":   "/home/andy/data/kangaroo/annots/",     
+        "train_image_folder":   "train_image/",
+        "train_annot_folder":   "test_labels/",     
           
-        "train_times":          8,
-        "pretrained_weights":   "full_yolo_kangaroo3.h5",
+        "train_times":          1,
+        "pretrained_weights":   "",
         "batch_size":           16,
         "learning_rate":        1e-4,
-        "nb_epochs":            1,
+        "nb_epochs":            30,
         "warmup_epochs":        3,
 
-        "object_scale":         5.0 ,
+        "object_scale":         5.0,
         "no_object_scale":      1.0,
         "coord_scale":          1.0,
-        "class_scale":          1.0,
+        "class_scale":          0.0,
 
-        "saved_weights_name":   "full_yolo_kangaroo.h5",
+        "saved_weights_name":   "monday3.h5",
         "debug":                true
     },
 

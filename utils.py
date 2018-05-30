@@ -55,7 +55,7 @@ def bbox_iou(box1, box2):
     
     return float(intersect) / union
 
-def draw_boxes(image, boxes, labels):
+def draw_boxes(image, boxes, labels, oldboxes, framenumber, count):
     image_h, image_w, _ = image.shape
 
     for box in boxes:
@@ -63,18 +63,30 @@ def draw_boxes(image, boxes, labels):
         ymin = int(box.ymin*image_h)
         xmax = int(box.xmax*image_w)
         ymax = int(box.ymax*image_h)
+        
 
         cv2.rectangle(image, (xmin,ymin), (xmax,ymax), (0,255,0), 3)
-        cv2.putText(image, 
-                    labels[box.get_label()] + ' ' + str(box.get_score()), 
-                    (xmin, ymin - 13), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 
-                    1e-3 * image_h, 
-                    (0,255,0), 2)
         
-    return image          
+         
+        if framenumber % 5 == 0:
+            collisions = 0
+            for oldbox in oldboxes:
+                
+                xmin2 = int(oldbox.xmin*image_w)
+                ymin2 = int(oldbox.ymin*image_h)
+                xmax2 = int(oldbox.xmax*image_w)
+                ymax2 = int(oldbox.ymax*image_h)
         
-def decode_netout(netout, anchors, nb_class, obj_threshold=0.3, nms_threshold=0.3):
+                if xmax > xmin2 and xmin < xmax2 and ymax > ymin2 and ymin <ymax2:
+                    collisions = collisions + 1
+                
+            if collisions == 0:
+                count = count + 1
+                    
+    cv2.putText(image, str(count),(100, 200), cv2.FONT_HERSHEY_SIMPLEX, 1e-2* image_h,(0,255,0), 2)         
+    return image, count          
+        
+def decode_netout(netout, anchors, nb_class, obj_threshold=0.22, nms_threshold=0.22):
     grid_h, grid_w, nb_box = netout.shape[:3]
 
     boxes = []

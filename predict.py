@@ -71,14 +71,17 @@ def _main_(args):
                                cv2.VideoWriter_fourcc(*'MPEG'), 
                                50.0, 
                                (frame_w, frame_h))
-
+        count = 0
         for i in tqdm(range(nb_frames)):
             _, image = video_reader.read()
             
             boxes = yolo.predict(image)
-            image = draw_boxes(image, boxes, config['model']['labels'])
+            if i > 0:
+                image, count = draw_boxes(image, boxes, config['model']['labels'], oldboxes, i, count)
 
-            video_writer.write(np.uint8(image))
+                video_writer.write(np.uint8(image))
+            
+            oldboxes = boxes
 
         video_reader.release()
         video_writer.release()  

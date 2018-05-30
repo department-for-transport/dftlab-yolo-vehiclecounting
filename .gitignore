@@ -1,0 +1,11 @@
+#ignore weights
+*.h5
+
+#ignore training images
+/train_image
+
+#ignore training labels
+/train_labels
+
+#ignore pycache
+/__pycache__

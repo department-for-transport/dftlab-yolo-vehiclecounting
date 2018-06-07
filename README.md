@@ -1,42 +1,10 @@
-# YOLOv2 in Keras and Applications
+#DfT Lab  - Counting Vehicles from satellite/aerial imagery/video
 
-This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend. It supports training YOLOv2 network with various backends such as MobileNet and InceptionV3. Links to demo applications are shown below. Check out https://experiencor.github.io/yolo_demo/demo.html for a Raccoon Detector demo run entirely in brower with DeepLearn.js and MobileNet backend (it somehow breaks in Window). Source code of this demo is located at https://git.io/vF7vG.
 
-## Todo list:
-- [x] Warmup training
-- [x] Raccoon detection, Self-driving car, and Kangaroo detection
-- [x] SqueezeNet, MobileNet, InceptionV3, and ResNet50 backends
-- [x] Support python 2.7 and 3.6
-- [ ] Multiple-GPU training
-- [ ] Multiscale training
-- [ ] mAP Evaluation
+This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend. It supports training YOLOv2 network with various backends such as MobileNet and InceptionV3. Thanks to Experiancor's excellent implementation, the original repo is here https://github.com/experiencor/keras-yolo2
 
-## Some example applications (click for videos):
+Links to our training set and trained weights are below.
 
-### Raccon detection
-<a href="https://www.youtube.com/watch?v=aibuvj2-zxA" rel="some text"><p align="center"><img src="https://i.imgur.com/6okeDjz.jpg" height="300"></p></a>
-
-Dataset => https://github.com/experiencor/raccoon_dataset
-
-### Kangaroo detection
-<a href="https://youtu.be/vjmFzEP1qZw?t=34" rel="some text"><p align="center"><img src="https://i.imgur.com/v606VZX.jpg" height="300"></p></a>
-
-Dataset => https://github.com/experiencor/kangaroo
-
-### Self-driving Car
-<a href="https://www.youtube.com/watch?v=oYCaILZxEWM" rel="some text"><p align="center"><img src="https://i.imgur.com/kEc9ptL.jpg" height="300"></p></a>
-
-Dataset => http://cocodataset.org/#detections-challenge2017
-
-### Red blod cell detection
-<a href="https://www.youtube.com/watch?v=oYCaILZxEWM" rel="some text"><p align="center"><img src="https://i.imgur.com/1vmIJKL.jpg" height="300"></p></a>
-
-Dataset => https://github.com/cosmicad/dataset
-
-### Hand detection
-<a href="https://www.youtube.com/watch?v=p3-3kN_fIz0" rel="some text"><p align="center"><img src="https://i.imgur.com/75imQQz.jpg" height="300"></p></a>
-
-Dataset => http://cvrr.ucsd.edu/vivachallenge/index.php/hands/hand-detection/
 
 ## Usage for python code
 
@@ -49,7 +17,7 @@ keras >= 2.0.8
 imgaug
 
 ### 1. Data preparation
-Download the Raccoon dataset from from https://github.com/experiencor/raccoon_dataset.
+Download the VEDAI dataset from from https://github.com/nikitalpopov/vedai
 
 Organize the dataset into 4 folders:
 
@@ -73,7 +41,7 @@ The configuration file is a json file, which looks like this:
         "input_size":           416,
         "anchors":              [0.57273, 0.677385, 1.87446, 2.06253, 3.33843, 5.47434, 7.88282, 3.52778, 9.77052, 9.16828],
         "max_box_per_image":    10,        
-        "labels":               ["raccoon"]
+        "labels":               ["vehicle"]
     },
 
     "train": {
@@ -113,11 +81,9 @@ https://1drv.ms/f/s!ApLdDEW3ut5fec2OzK4S4RpT-SU
 
 **These weights must be put in the root folder of the repository. They are the pretrained weights for the backend only and will be loaded during model creation. The code does not work without these weights.**
 
-The link to the pretrained weights for the whole model (both frontend and backend) of the raccoon detector can be downloaded at:
+The link to the pretrained weights for the whole model (both frontend and backend) of the vehicle detector can be downloaded at:
 
-https://1drv.ms/f/s!ApLdDEW3ut5feoZAEUwmSMYdPlY
-
-These weights can be used as the pretrained weights for any one class object detectors.
+https://storage.googleapis.com/cudnnfreight/trainedweights.h5
 
 ### 3. Generate anchors for your dataset (optional)
 
@@ -140,13 +106,6 @@ It carries out detection on the image and write the image with detected bounding
 
 Refer to the notebook (https://github.com/experiencor/basic-yolo-keras/blob/master/Yolo%20Step-by-Step.ipynb) for a complete walk-through implementation of YOLOv2 from scratch (training, testing, and scoring).
 
-## Evaluation of the current implementation:
-
-| Train        | Test          | mAP (with this implementation) | mAP (on released weights) |
-| -------------|:--------------|:------------------------:|:-------------------------:|
-| COCO train   | COCO val      | 28.6 |    42.1 |
-
-The code to evaluate detection results can be found at https://github.com/experiencor/basic-yolo-keras/issues/27.
 
 ## Copyright
 

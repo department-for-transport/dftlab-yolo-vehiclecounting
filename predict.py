@@ -77,7 +77,7 @@ def _main_(args):
             
             boxes = yolo.predict(image)
             if i > 0:
-                image, count = draw_boxes(image, boxes, config['model']['labels'], oldboxes, i, count)
+                image, count = count_boxes(image, boxes, config['model']['labels'], oldboxes, i, count)
 
                 video_writer.write(np.uint8(image))
             

@@ -1,20 +1,22 @@
 #DfT Lab  - Counting Vehicles from satellite/aerial imagery/video
 
 
-This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend. It supports training YOLOv2 network with various backends such as MobileNet and InceptionV3. Thanks to Experiancor's excellent implementation, the original repo is here https://github.com/experiencor/keras-yolo2
+This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend. It supports training YOLOv2 network with various backends such as MobileNet and InceptionV3. Thanks to Experiencor's excellent implementation, the original repo is here https://github.com/experiencor/keras-yolo2
 
 Links to our training set and trained weights are below.
+
+You can see it working on video at https://list.ly/list/2B7T-a-list-of-everything-the-dft-lab-does-and-has-done
 
 
 ## Usage for python code
 
 ### 0. Requirement
 
-python 2.7
+Check out requirements.txt
 
-keras >= 2.0.8
+WARNING - if you're going to train this, you need a good Nvidia GPU, with CUDA and CUDnn installed (https://www.tensorflow.org/install/install_linux). Note, we're using tensorflow-gpu 1.3!
 
-imgaug
+It should predict on most machines though!
 
 ### 1. Data preparation
 Download the VEDAI dataset from from https://github.com/nikitalpopov/vedai
@@ -79,7 +81,7 @@ Download pretrained weights for backend (tiny yolo, full yolo, squeezenet, mobil
 
 https://1drv.ms/f/s!ApLdDEW3ut5fec2OzK4S4RpT-SU
 
-**These weights must be put in the root folder of the repository. They are the pretrained weights for the backend only and will be loaded during model creation. The code does not work without these weights.**
+**These weights must be put in the root folder of the repository if you want to train the network. They are the pretrained weights for the backend only and will be loaded during model creation. The code does not work without these weights.**
 
 The link to the pretrained weights for the whole model (both frontend and backend) of the vehicle detector can be downloaded at:
 
@@ -95,12 +97,16 @@ Copy the generated anchors printed on the terminal to the ```anchors``` setting 
 
 `python train.py -c config.json`
 
+
+
 By the end of this process, the code will write the weights of the best model to file best_weights.h5 (or whatever name specified in the setting "saved_weights_name" in the config.json file). The training process stops when the loss on the validation set is not improved in 3 consecutive epoches.
 
 ### 5. Perform detection using trained weights on an image by running
 `python predict.py -c config.json -w /path/to/best_weights.h5 -i /path/to/image/or/video`
 
-It carries out detection on the image and write the image with detected bounding boxes to the same folder.
+It carries out detection on the image and write the image with detected bounding boxes to the same folder. If you're feeding it videos, it will endevaour to count the unique vehicles (it does this by a slightly crude collision detection (the code for which is in utils.py)
+
+Note that the model resizes images to 416*416 (you could change this but would need to alter the net archicture too), so don't go feeding it big images that when resized mean each vehicle is a little smudge of pixels - it wont get these! If it's not making predictions, try tinkering around with the level of zoom on each image, or the threshold values in utils.py 
 
 ## Usage for jupyter notebook
 

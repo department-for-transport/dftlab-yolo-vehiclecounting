@@ -5,7 +5,9 @@ This repo contains the implementation of YOLOv2 in Keras with Tensorflow backend
 
 Links to our training set and trained weights are below.
 
-You can see it working on video at https://list.ly/list/2B7T-a-list-of-everything-the-dft-lab-does-and-has-done
+You can see it working on video at https://list.ly/list/2B7T-a-list-of-everything-the-dft-lab-does-and-has-done 
+
+and at https://www.youtube.com/watch?v=iOcHr77708E
 
 
 ## Usage for python code
